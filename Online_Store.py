@@ -224,11 +224,10 @@ def show_users(users_list):
     print("-" * 30)
 
     try:
-        i = 1
         for username, user_data in users_list.items():
-            print(f"{i}. " + "{:<15} {:<10}".format(username, user_data["role"]))
-            i += 1
+            print("{:<18} {:<10}".format(username, user_data["role"]))
         print("-" * 30)
+
     except KeyError as e:
         print(f"Некорректные данные пользователя. Отсутствует ключ: {e}")
     except Exception as e:
@@ -433,11 +432,11 @@ def checkout(username):
 
             purchase_items_list = []
             for product_name, quantity in purchase_items.items():
-                product = next((p for p in products if p["name"] == product_name), None) #Find product by name
+                product = next((p for p in products if p["name"] == product_name), None)
                 if product:
                     purchase_items_list.append({"product_name": product_name, "quantity": quantity, "cost": product["price"] * quantity})
                 else:
-                    print(f"Error: Product '{product_name}' not found in the product list.")
+                    print(f"Продукт '{product_name}' не найден в списке товаров.")
                     return
 
             user_purchase_history.setdefault(username, []).append(
@@ -476,9 +475,8 @@ def view_purchase_history(username):
 
 def main():
     i = 0
-    stop = True
 
-    while stop:
+    while True:
         if i >= 1:
             exit_program = input("\nДля выхода из программы введите '1': ")
             if exit_program == "1":
@@ -519,8 +517,6 @@ def main():
                         manage_users()
                     elif choice == 6:
                         break
-                    else:
-                        print("Выберите цифру от 1 до 6.")
 
                 except Exception as e:
                         print(f"Произошла ошибка: {e}")
@@ -557,8 +553,6 @@ def main():
                         view_purchase_history(username)
                     elif choice == 6:
                         break
-                    else:
-                        print("Выберите цифру от 1 до 6.")
 
                 except Exception as e:
                     print(f"Произошла ошибка: {e}")
